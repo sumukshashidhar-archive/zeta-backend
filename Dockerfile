@@ -30,4 +30,4 @@ EXPOSE 80
 
 RUN cd src
 
-CMD "gunicorn --bind 0.0.0.0:80 wsgi:app"
+CMD gunicorn --bind 0.0.0.0:80 wsgi:app
