@@ -13,5 +13,6 @@ def home():
         "message": "All Systems are GO!"
     })
 
-
-app.run(host=HOST)
+if __name__ == "__main__":
+    # critical to have this conditional for gunicorn to work!
+    app.run()
