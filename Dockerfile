@@ -27,4 +27,4 @@ RUN pip3 install -r requirements.txt
 
 EXPOSE 5000
 
-CMD cd src && gunicorn --bind 0.0.0.0:5000 wsgi:app
+CMD cd src && gunicorn --bind 127.0.0.1:5000 wsgi:app
