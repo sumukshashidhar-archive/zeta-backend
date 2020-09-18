@@ -26,7 +26,5 @@ RUN pip3 install --upgrade pip
 RUN pip3 install -r requirements.txt
 
 EXPOSE 5000
-EXPOSE 80
 
-
-CMD cd src && gunicorn --bind 0.0.0.0:80 wsgi:app
+CMD cd src && gunicorn --bind 0.0.0.0:5000 wsgi:app
