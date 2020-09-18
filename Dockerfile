@@ -28,6 +28,6 @@ RUN pip3 install -r requirements.txt
 EXPOSE 5000
 EXPOSE 80
 
-RUN cd src
+WORKDIR /src
 
 CMD gunicorn --bind 0.0.0.0:80 wsgi:app
