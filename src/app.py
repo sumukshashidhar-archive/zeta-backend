@@ -34,6 +34,7 @@ def accept_incoming_image():
         return flask.jsonify({
             "message": "Auth Required"
         }), 401
+    print(token)
     response = jw.validate_token(token)
     if response[0] and response[1]['decodedToken']['role'] == 'device':
         # set a storage directory for the image. built using the username.
