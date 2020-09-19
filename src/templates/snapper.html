@@ -2,13 +2,48 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no, initial-scale=1.0"/>
     <title>Snapper</title>
+    <style>
+            h1 {
+              font-size: 20px;
+            }
+            html {
+              height: 100%;
+            }
+            body {
+              width: 100%;
+              margin: 5% auto; 
+              background-image: linear-gradient(60deg, slateblue, lightblue);
+              color: #ffffff; 
+              font-family: 'Raleway Light';
+              font-size: 20px; 
+              line-height: 1.8; 
+              max-width: 73%;
+            }
+
+            header {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              flex-direction: column;
+            }
+            a {
+              border-bottom: 1px solid #444444; 
+              color: #444444; 
+              text-decoration: none;
+            }
+        </style>
 </head>
-<body>
-    <form action="/api/snap_raspberry">
-  <label for="raspip">Raspberry Pi Ip Address</label><br>
-  <input type="text" id="raspip" name="raspip" value="" placeholder="192.168.X.X"><br>
-  <input type="submit" value="SNAP!">
-</form>
-</body>
+<div> 
+  <label style = "font-family:Raleway light,serif;font-size:50px;position:fixed;top:0;right:0;">HackMIT&nbsp;&nbsp;&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label><br> 
+  <label style = "font-family:Raleway Black,serif;font-size:50px;position:fixed;top:0;right:0;">ZETA&nbsp</label><br> 
+</div> 
+<h1>
+  <form action="/api/snap_raspberry">
+   <label for="raspip">Raspberry Pi IP Address</label><br>
+  <input type="text" style = "font-family:Oswald,serif;font-size:40px;font-style:Italic;" id="raspip" name="raspip" value="" placeholder="192.168.X.X"><br>
+  <input type="submit" style = "font-family:Raleway Light,serif;font-size:15px;" value="SNAP!">
+  </form>
+</h1>
 </html>
