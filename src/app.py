@@ -34,14 +34,14 @@ def accept_incoming_image():
             "message":"Auth Required"
         }), 401
     try:
-        response = jw.decode(token)
+        response = jw.validate_token(token)
     except:
         return flask.jsonify({
             "message":"JWT Deserialization Failed"
         }), 500
-    if response[0]:
+    if response[0] and response[1]['decodedToken']['role'] == 'device':
         # set a storage directory for the image. built using the username.
-        storage_directory = f"./static/images/{response[1]['username']}/"
+        storage_directory = f"./static/images/{response[1]['decodedToken']['username']}/"
         if os.path.isdir(storage_directory):
             pass
         else:
