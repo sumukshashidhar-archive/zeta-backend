@@ -15,7 +15,7 @@ app.config["DEBUG"] = True
 
 # global constants
 HOST = "0.0.0.0"
-
+PORT = 80
 
 # routes
 @app.route('/', methods=['GET'])
@@ -108,4 +108,4 @@ def snap_raspberry():
 
 if __name__ == "__main__":
     # critical to have this conditional for gunicorn to work!
-    app.run(host=HOST)
+    app.run(host=HOST, port=PORT)
