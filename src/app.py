@@ -51,7 +51,7 @@ def accept_incoming_image():
         file_uuid = shortuuid.uuid()
         filename = storage_directory + file_uuid + ".png"
         f.save(filename)
-        ilog.log(response[1]['username'], file_uuid+".png", f"40.76.37.214:80/static/images/{response[1]['username']}/{file_uuid}.png", str(date.now())
+        ilog.log(response[1]['username'], file_uuid+".png", f"40.76.37.214:80/static/images/{response[1]['username']}/{file_uuid}.png", str(date.now()))
         return(flask.jsonify({
             "status":200,
             "message":f"Accepted the Image from user {response[1]['username']}"
