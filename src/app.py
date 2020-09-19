@@ -2,7 +2,7 @@
 import flask
 import os
 import shortuuid
-from datetime import date
+from datetime import datetime
 import requests
 
 # file imports
@@ -49,7 +49,7 @@ def accept_incoming_image():
         filename = storage_directory + file_uuid + ".png"
         f.save(filename)
         ilog.log(response[1]['decodedToken']['username'], file_uuid + ".png",
-                 f"40.76.37.214:80/static/images/{response[1]['decodedToken']['username']}/{file_uuid}.png", str(date.now()))
+                 f"40.76.37.214:80/static/images/{response[1]['decodedToken']['username']}/{file_uuid}.png", str(datetime.now()))
         return (flask.jsonify({
             "message": f"Accepted the Image from user {response[1]['decodedToken']['username']}"
         })), 200
