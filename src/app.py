@@ -3,6 +3,7 @@ from werkzeug.utils import secure_filename
 import jwt_handler as jw
 import os
 import shortuuid
+import image_upload_logger as ilog
 
 
 app = flask.Flask(__name__)
@@ -23,8 +24,20 @@ def home():
 
 @app.route('/api/upload/image', methods=['POST'])
 def accept_incoming_image():
-    token = flask.request.form['token']
-    response = jw.decode(token)
+    try:
+        token = flask.request.form['token']
+    except:
+        return flask.jsonify({
+            "status":401,
+            "message":"Auth Required"
+        })
+    try:
+        response = jw.decode(token)
+    except:
+        return flask.jsonify({
+            "status":500,
+            "message":"JWT Deserialization Failed"
+        })
     if response[0]:
         storage_directory = f"./static/images/{response[1]['username']}"
         if os.path.isdir(storage_directory):
@@ -33,16 +46,26 @@ def accept_incoming_image():
             os.mkdir(storage_directory)
     # uploaded
         f = flask.request.files['image']
-        filename = storage_directory + shortuuid.uuid() + ".png"
+        file_uuid = shortuuid.uuid()
+        filename = storage_directory + file_uuid + ".png"
         f.save(filename)
+        ilog.log(response[1]['username'], file_uuid)
         return(flask.jsonify({
             "status":200,
-            "message":"Accepted the Image"
+            "message":f"Accepted the Image from user {response[1]['username']}"
         }))
+    else:
+        return flask.jsonify({
+            "status":403,
+            "message":"Malformed JWT."
+        })
 
 
 @app.route('/api/getImages', methods=['GET'])
-def get_image()
+def get_image():
+    with open('userlist.csv', 'r') as f:
+        text = f.read()
+        return text
 
 @app.route('/post', methods=['POST'])
 def post_test():
