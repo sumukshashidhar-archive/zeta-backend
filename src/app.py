@@ -40,6 +40,10 @@ def accept_incoming_image():
             "message":"Accepted the Image"
         }))
 
+
+@app.route('/api/getImages', methods=['GET'])
+def get_image()
+
 @app.route('/post', methods=['POST'])
 def post_test():
     print("hello world")

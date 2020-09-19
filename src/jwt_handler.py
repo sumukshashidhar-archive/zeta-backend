@@ -6,7 +6,6 @@ def decode(encoded_jwt):
     response = eval(requests.get("http://40.76.37.214:3000/key").text)
     if response['status'] == 200:
         publicKEY = bytes(response['key'], "ascii")
-        print(publicKEY)
         claims = jwt.decode(encoded_jwt, publicKEY, algorithms="RS512")
         return (True, claims)
     else:
