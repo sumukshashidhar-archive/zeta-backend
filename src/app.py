@@ -39,7 +39,7 @@ def accept_incoming_image():
             "message":"JWT Deserialization Failed"
         })
     if response[0]:
-        storage_directory = f"./static/images/{response[1]['username']}"
+        storage_directory = f"./static/images/{response[1]['username']}/"
         if os.path.isdir(storage_directory):
             pass
         else:
