@@ -1,4 +1,5 @@
 import flask
+from werkzeug.utils import secure_filename
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
@@ -15,11 +16,20 @@ def home():
         "message": "All Systems are GO!"
     })
 
+
 @app.route('/api/upload/image', methods=['POST'])
 def accept_incoming_image():
-    return flask.jsonify({
+    # uploaded
+    f = flask.request.files['upload_file']
+    filename = f"./static/images/{username}"
+    f.save(secure_filename("./static/images/"+f.filename))
+    return(flask.jsonify({
         "status":200
-    })
+    }))
+
+@app.route('/post', methods=['POST'])
+def post_test():
+    print("hello world")
 
 @app.route('/api/image', methods=['GET'])
 def serve_image():
@@ -31,4 +41,4 @@ def serve_image():
 
 if __name__ == "__main__":
     # critical to have this conditional for gunicorn to work!
-    app.run()
+    app.run(host=HOST)
