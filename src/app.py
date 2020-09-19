@@ -23,23 +23,22 @@ def home():
 
 @app.route('/api/upload/image', methods=['POST'])
 def accept_incoming_image():
-    # first verify the token:
-    token = flask.request.data['token']
+    token = flask.request.form['token']
     response = jw.decode(token)
     if response[0]:
-        storage_directory = f"./static/images/{response[2]['username']}"
+        storage_directory = f"./static/images/{response[1]['username']}"
         if os.path.isdir(storage_directory):
             pass
         else:
             os.mkdir(storage_directory)
     # uploaded
-    f = flask.request.files['image']
-    filename = storage_directory + shortuuid.uuid() + ".png"
-    f.save(secure_filename(filename))
-    return(flask.jsonify({
-        "status":200,
-        "message":"Accepted the Image"
-    }))
+        f = flask.request.files['image']
+        filename = storage_directory + shortuuid.uuid() + ".png"
+        f.save(filename)
+        return(flask.jsonify({
+            "status":200,
+            "message":"Accepted the Image"
+        }))
 
 @app.route('/post', methods=['POST'])
 def post_test():
