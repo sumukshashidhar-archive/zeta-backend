@@ -1,21 +1,22 @@
+# module imports
 import flask
-from werkzeug.utils import secure_filename
-import jwt_handler as jw
 import os
 import shortuuid
 from datetime import date
 
+# file imports
 import image_upload_logger as ilog
+import jwt_handler as jw
 
-
+# initialization
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
 
 
-
+# global constants
 HOST = "0.0.0.0"
 
-
+# routes
 @app.route('/', methods=['GET'])
 def home():
     return flask.jsonify({
@@ -30,17 +31,16 @@ def accept_incoming_image():
         token = flask.request.form['token']
     except:
         return flask.jsonify({
-            "status":401,
             "message":"Auth Required"
-        })
+        }), 401
     try:
         response = jw.decode(token)
     except:
         return flask.jsonify({
-            "status":500,
             "message":"JWT Deserialization Failed"
-        })
+        }), 500
     if response[0]:
+        # set a storage directory for the image. built using the username.
         storage_directory = f"./static/images/{response[1]['username']}/"
         if os.path.isdir(storage_directory):
             pass
@@ -53,33 +53,23 @@ def accept_incoming_image():
         f.save(filename)
         ilog.log(response[1]['username'], file_uuid+".png", f"40.76.37.214:80/static/images/{response[1]['username']}/{file_uuid}.png", str(date.now()))
         return(flask.jsonify({
-            "status":200,
             "message":f"Accepted the Image from user {response[1]['username']}"
-        }))
+        })), 200
     else:
         return flask.jsonify({
-            "status":403,
             "message":"Malformed JWT."
-        })
+        }), 403
 
 
 @app.route('/api/getImages', methods=['GET'])
 def get_image():
-    with open('userlist.csv', 'r') as f:
-        text = f.read()
-        return text
+    try:
+        with open('userlist.csv', 'r') as f:
+            text = f.read()
+            return text
+    except:
+        return 500, {"message":"Something went wrong with the text parser"}
 
-@app.route('/post', methods=['POST'])
-def post_test():
-    print("hello world")
-
-@app.route('/api/image', methods=['GET'])
-def serve_image():
-    return flask.jsonify(
-        {
-
-        }
-    )
 
 if __name__ == "__main__":
     # critical to have this conditional for gunicorn to work!
