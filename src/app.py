@@ -3,6 +3,7 @@ import flask
 import os
 import shortuuid
 from datetime import date
+import requests
 
 # file imports
 import image_upload_logger as ilog
@@ -12,9 +13,9 @@ import jwt_handler as jw
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
 
-
 # global constants
 HOST = "0.0.0.0"
+
 
 # routes
 @app.route('/', methods=['GET'])
@@ -31,14 +32,9 @@ def accept_incoming_image():
         token = flask.request.form['token']
     except:
         return flask.jsonify({
-            "message":"Auth Required"
+            "message": "Auth Required"
         }), 401
-    try:
-        response = jw.validate_token(token)
-    except:
-        return flask.jsonify({
-            "message":"JWT Deserialization Failed"
-        }), 500
+    response = jw.validate_token(token)
     if response[0] and response[1]['decodedToken']['role'] == 'device':
         # set a storage directory for the image. built using the username.
         storage_directory = f"./static/images/{response[1]['decodedToken']['username']}/"
@@ -46,18 +42,19 @@ def accept_incoming_image():
             pass
         else:
             os.mkdir(storage_directory)
-    # uploaded
+        # uploaded
         f = flask.request.files['image']
         file_uuid = shortuuid.uuid()
         filename = storage_directory + file_uuid + ".png"
         f.save(filename)
-        ilog.log(response[1]['username'], file_uuid+".png", f"40.76.37.214:80/static/images/{response[1]['username']}/{file_uuid}.png", str(date.now()))
-        return(flask.jsonify({
-            "message":f"Accepted the Image from user {response[1]['username']}"
+        ilog.log(response[1]['username'], file_uuid + ".png",
+                 f"40.76.37.214:80/static/images/{response[1]['username']}/{file_uuid}.png", str(date.now()))
+        return (flask.jsonify({
+            "message": f"Accepted the Image from user {response[1]['username']}"
         })), 200
     else:
         return flask.jsonify({
-            "message":"Malformed JWT."
+            "message": "Malformed JWT."
         }), 403
 
 
@@ -68,14 +65,43 @@ def get_image():
             text = f.read()
             return text, 200
     except:
-        return 500, {"message":"Something went wrong with the text parser"}
+        return 500, {"message": "Something went wrong with the text parser"}
+
 
 """
 App Route to Show the ML Options Page.
 """
-@app.route('/api/ml', methods=['GET'])
+
+
+@app.route('/functions', methods=['GET'])
 def view_ml():
     return flask.render_template('ml_page.html')
+
+
+@app.route('/snapper', methods=['GET'])
+def view_ml():
+    return flask.render_template('ml_page.html')
+
+
+@app.route('/api/snap_raspberry', methods=['POST'])
+def snap_raspberry():
+    """
+    Should send an API request to the raspberry pi
+    :return:
+    """
+    RASP_IP_ADDR = ""
+    PERSONAL_TOKEN = ""
+    response = requests.post(
+        url = f"http://{RASP_IP_ADDR}:80/api/snap",
+        data = {
+            "token":PERSONAL_TOKEN
+        }
+    )
+    if response.status_code == 200:
+        # means that it succeeded in uploading the image
+        print("Done.")
+    else:
+        print(response.status_code, response.text)
 
 
 if __name__ == "__main__":
