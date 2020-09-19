@@ -8,9 +8,9 @@ def decode(encoded_jwt):
         publicKEY = bytes(response['key'], "ascii")
         print(publicKEY)
         claims = jwt.decode(encoded_jwt, publicKEY, algorithms="RS512")
-        return claims
+        return (True, claims)
     else:
-        return 500
+        return (False, 500)
 
 
 if __name__ == "__main__":

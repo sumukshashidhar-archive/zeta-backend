@@ -1,5 +1,9 @@
 import flask
 from werkzeug.utils import secure_filename
+import jwt_handler as jw
+import os
+import shortuuid
+
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
@@ -19,12 +23,22 @@ def home():
 
 @app.route('/api/upload/image', methods=['POST'])
 def accept_incoming_image():
+    # first verify the token:
+    token = flask.request.data['token']
+    response = jw.decode(token)
+    if response[0]:
+        storage_directory = f"./static/images/{response[2]['username']}"
+        if os.path.isdir(storage_directory):
+            pass
+        else:
+            os.mkdir(storage_directory)
     # uploaded
-    f = flask.request.files['upload_file']
-    filename = f"./static/images/{username}"
-    f.save(secure_filename("./static/images/"+f.filename))
+    f = flask.request.files['image']
+    filename = storage_directory + shortuuid.uuid() + ".png"
+    f.save(secure_filename(filename))
     return(flask.jsonify({
-        "status":200
+        "status":200,
+        "message":"Accepted the Image"
     }))
 
 @app.route('/post', methods=['POST'])
