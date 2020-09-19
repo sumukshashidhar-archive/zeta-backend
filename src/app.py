@@ -70,6 +70,13 @@ def get_image():
     except:
         return 500, {"message":"Something went wrong with the text parser"}
 
+"""
+App Route to Show the ML Options Page.
+"""
+@app.route('/api/ml', methods=['GET'])
+def view_ml():
+    return flask.render_template('ml_page.html')
+
 
 if __name__ == "__main__":
     # critical to have this conditional for gunicorn to work!
