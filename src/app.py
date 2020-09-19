@@ -66,7 +66,7 @@ def get_image():
     try:
         with open('userlist.csv', 'r') as f:
             text = f.read()
-            return text
+            return text, 200
     except:
         return 500, {"message":"Something went wrong with the text parser"}
 
