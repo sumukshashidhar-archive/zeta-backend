@@ -3,6 +3,8 @@ from werkzeug.utils import secure_filename
 import jwt_handler as jw
 import os
 import shortuuid
+from datetime import date
+
 import image_upload_logger as ilog
 
 
@@ -49,7 +51,7 @@ def accept_incoming_image():
         file_uuid = shortuuid.uuid()
         filename = storage_directory + file_uuid + ".png"
         f.save(filename)
-        ilog.log(response[1]['username'], file_uuid+".png", f"40.76.37.214:80/static/images/{response[1]['username']}/{file_uuid}.png")
+        ilog.log(response[1]['username'], file_uuid+".png", f"40.76.37.214:80/static/images/{response[1]['username']}/{file_uuid}.png", str(date.now())
         return(flask.jsonify({
             "status":200,
             "message":f"Accepted the Image from user {response[1]['username']}"
