@@ -80,7 +80,7 @@ def view_ml():
 
 
 @app.route('/snapper', methods=['GET'])
-def view_ml():
+def snapper_view():
     return flask.render_template('ml_page.html')
 
 
