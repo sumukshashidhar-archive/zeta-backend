@@ -34,7 +34,6 @@ def accept_incoming_image():
         return flask.jsonify({
             "message": "Auth Required"
         }), 401
-    print(token)
     response = jw.validate_token(token)
     if response[0] and response[1]['decodedToken']['role'] == 'device':
         # set a storage directory for the image. built using the username.
@@ -60,10 +59,12 @@ def accept_incoming_image():
 
 
 @app.route('/api/getImages', methods=['GET'])
-def get_image():
+def get_images():
+    print("Recieved the request")
     try:
         with open('userlist.csv', 'r') as f:
             text = f.read()
+            print("Read the file")
             return text, 200
     except:
         return 500, {"message": "Something went wrong with the text parser"}
@@ -80,8 +81,8 @@ def view_ml():
 
 
 @app.route('/snapper', methods=['GET'])
-def snapper_view    ():
-    return flask.render_template('ml_page.html')
+def snapper_view():
+    return flask.render_template('snapper.html')
 
 
 @app.route('/api/snap_raspberry', methods=['POST'])
