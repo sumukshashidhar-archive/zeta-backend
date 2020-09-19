@@ -48,10 +48,10 @@ def accept_incoming_image():
         file_uuid = shortuuid.uuid()
         filename = storage_directory + file_uuid + ".png"
         f.save(filename)
-        ilog.log(response[1]['username'], file_uuid + ".png",
-                 f"40.76.37.214:80/static/images/{response[1]['username']}/{file_uuid}.png", str(date.now()))
+        ilog.log(response[1]['decodedToken']['username'], file_uuid + ".png",
+                 f"40.76.37.214:80/static/images/{response[1]['decodedToken']['username']}/{file_uuid}.png", str(date.now()))
         return (flask.jsonify({
-            "message": f"Accepted the Image from user {response[1]['username']}"
+            "message": f"Accepted the Image from user {response[1]['decodedToken']['username']}"
         })), 200
     else:
         return flask.jsonify({
@@ -80,7 +80,7 @@ def view_ml():
 
 
 @app.route('/snapper', methods=['GET'])
-def snapper_view():
+def snapper_view    ():
     return flask.render_template('ml_page.html')
 
 
