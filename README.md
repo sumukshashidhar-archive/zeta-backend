@@ -44,7 +44,10 @@ This is a valid request
 All Routes are prefixed with `/api/ml/` to indicate their nature. 
 
 ## GET - /api/ml/face_recognition
-Returns face data. Draws Images for you. 
+Returns face data. Draws hitboxes for you. 
 ## GET - /api/ml/classifier
+Returns classification data. For eg: people, cats, dogs, fruits, vehicles. 
 ## GET - /api/ml/color_recognition
+Returns dominant color data
 ## GET - /api/ml/writing_recognition
+Returns OCR data
