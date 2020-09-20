@@ -22,4 +22,4 @@ def validate_token(token):
 
     else:
         print(response.status_code)
-        return False
+        return (False, )
