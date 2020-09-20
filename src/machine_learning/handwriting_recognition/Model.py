@@ -3,9 +3,10 @@ from __future__ import print_function
 
 import sys
 import numpy as np
-import tensorflow as tf
+import tensorflow.compact.v1 as tf
 import os
 
+tf.disable_v2_behaviour()
 
 class DecoderType:
 	BestPath = 0
