@@ -109,6 +109,11 @@ def snap_raspberry():
 
 @app.route('/api/deleteImage', methods=['GET'])
 def delete_image():
+    """Deletes an image in a path supplied
+
+    Returns:
+        JSON: a json object with the response
+    """
     # check if the token is supplied with the getRequest:
     token = None
     if 'token' in flask.request.args:
