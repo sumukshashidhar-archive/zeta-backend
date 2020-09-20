@@ -1,2 +1,0 @@
-def predict(filepath):
-    pass
