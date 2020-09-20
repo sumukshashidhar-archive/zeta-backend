@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no, initial-scale=1.0"/>
-    <title>Machine Learning @ ZETA</title>
+    <title>ML @ ZETA</title>
     <style>
             h1 {
               font-size: 20px;
@@ -39,7 +39,21 @@
   <label style = "font-family:Raleway light,serif;font-size:50px;position:fixed;top:0;right:0;">HackMIT&nbsp;&nbsp;&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label><br> 
   <label style = "font-family:Raleway Black,serif;font-size:50px;position:fixed;top:0;right:0;">ZETA&nbsp</label><br> 
 </div> 
-<body>
-    <h1>Welcome to Zeta's Raspberry Pi. You can control your Pi here.</h1>
-</body>
+<h1>
+  <form action="/api/color_raspberry">
+  <label for="raspip">Detect Color&nbsp&nbsp</label> 
+  <input type="submit" style = "font-family:Raleway Light,serif;font-size:15px;" value="GO">
+  <p>Source Code:&nbsp&nbsp<a href = "https://hastebin.com/yuneqinugu.py" target = "_self">Detect Color</a>
+  </form><br>
+  <form action="/api/face_raspberry">
+  <label for="raspip">Count Faces&nbsp&nbsp</label> 
+  <input type="submit" style = "font-family:Raleway Light,serif;font-size:15px;" value="GO">
+  <p>Source Code:&nbsp&nbsp<a href = "https://hastebin.com/ojepajacan.py" target = "_self">Count Faces</a>
+  </form><br>
+  <form action="/api/handwriting_raspberry">
+  <label for="raspip">Read Handwriting&nbsp&nbsp</label> 
+  <input type="submit" style = "font-family:Raleway Light,serif;font-size:15px;" value="GO">
+  <p>Source Code:&nbsp&nbsp<a href = "https://github.com/githubharald/SimpleHTR" target = "_self">Read Handwriting</a>
+  </form><br>
+</h1>
 </html>
