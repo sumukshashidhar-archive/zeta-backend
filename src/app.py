@@ -102,7 +102,7 @@ def view_ml():
 
 @app.route('/snapper', methods=['GET'])
 def snapper_view():
-    return flask.render_template('snapper.html', data={'url':'#'})
+    return flask.render_template('snapper.html')
 
 
 @app.route('/api/snap_raspberry', methods=['POST'])
@@ -120,11 +120,9 @@ def snap_raspberry():
         }), 400
     RASP_IP_ADDR = ip
     url = f"http://{RASP_IP_ADDR}:5000/api/snap"
-    resp = requests.get(url)
-    if resp.status_code == 200:
-        return flask.redirect(flask.url_for('/functions'))
-    else:
-        return {"message":"Did not snap I guess"},500
+    return flask.render_template('snapper.html', data={
+        "url":url
+    })
 
 
 
