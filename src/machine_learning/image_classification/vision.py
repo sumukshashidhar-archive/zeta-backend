@@ -73,7 +73,7 @@ def predict(filename):
 
     for i in range(len(raw_pd)):
         if raw_pd[i] == max(raw_pd):
-            prediction = json.loads(open("lables.json", 'r').read())["lables"][i]
+            prediction = json.loads(open("./machine_learning/image_classification/lables.json", 'r').read())["lables"][i]
 
     return {
         "prediction": prediction
