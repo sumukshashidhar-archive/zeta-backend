@@ -173,7 +173,22 @@ def delete_image():
             }), 403
 
 
-    
+"""
+ML FUNCTIONS
+"""   
+
+@app.route('/api/ml/face_recognition', methods=['GET'])
+def ml_face_recog():
+    # retrieve the last image from the database
+    with open('userlist.csv', 'r') as f:
+        # readlines, select the last line and split
+        ls = f.readlines()
+        print(ls)
+        ls = ls[-1].split(',')
+        print(ls)
+        filepath = f'./static/images/{ls[1]}/{ls[2]}'
+
+
 
 
 if __name__ == "__main__":
