@@ -122,7 +122,7 @@ def snap_raspberry():
     url = f"http://{RASP_IP_ADDR}:5000/api/snap"
     resp = requests.get(url)
     if resp.status_code == 200:
-        return flask.redirect(flask.url_for(''))
+        return flask.redirect(flask.url_for('/functions'))
     return flask.render_template('snapper.html', data={
         "url":url
     })
