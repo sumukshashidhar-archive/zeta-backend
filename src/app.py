@@ -199,7 +199,7 @@ def ml_writing_recog():
         return output, 200
  
                      
-@app.route('/api/ml/color_recognition', methods=['GET'])
+@app.route('/api/ml/face_recognition', methods=['GET'])
 def ml_color_recog():
     # retrieve the last image from the database
     with open('userlist.csv', 'r') as f:
@@ -209,14 +209,15 @@ def ml_color_recog():
         ls = ls[-1].split(',')
         print(ls)
         filepath = f'./static/images/{ls[1]}/{ls[2]}'
+        filepath2 = f'./static/images/output/{ls[1]}/{ls[2]}'
 
         print(filepath)
         # sending the file path to the ml module
-        output = face_detect.detect(filepath)
-        return output, 200 
+        output = face_detect.detect(filepath, filepath2)
+        return {"output":output, "filepath":filepath2}, 200
 
                      
-@app.route('/api/ml/face_recognition', methods=['GET'])
+@app.route('/api/ml/color_recognition', methods=['GET'])
 def ml_face_recog():
     # retrieve the last image from the database
     with open('userlist.csv', 'r') as f:
