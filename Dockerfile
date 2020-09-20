@@ -19,6 +19,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         && \
     dpkg --add-architecture i386 && \
     apt-get clean && \
+    apt-get update && \
     rm -rf /var/lib/apt/lists/* && \
     apt-get install -y libsm6 libxext6 libxrender-dev && \
     apt-get install -y libgl1-mesa-glx
