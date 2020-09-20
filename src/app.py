@@ -104,6 +104,9 @@ def view_ml():
 def snapper_view():
     return flask.render_template('snapper.html', data={'url':'#'})
 
+@app.route('/functions', methods=['GET'])
+def snapper_view():
+    return flask.render_template('ml_page.html')
 
 @app.route('/api/snap_raspberry', methods=['POST'])
 def snap_raspberry():
@@ -120,6 +123,9 @@ def snap_raspberry():
         }), 400
     RASP_IP_ADDR = ip
     url = f"http://{RASP_IP_ADDR}:5000/api/snap"
+    resp = requests.get(url)
+    if resp.status_code == 200:
+        return flask.redirect(flask.url_for(''))
     return flask.render_template('snapper.html', data={
         "url":url
     })
@@ -209,7 +215,7 @@ def ml_color_recog():
         ls = ls[-1].split(',')
         print(ls)
         filepath = f'./static/images/{ls[1]}/{ls[2]}'
-        filepath2 = f'./static/images/output/{ls[1]}/{ls[2]}'
+        filepath2 = f'./static/images/{ls[1]}/output/{ls[2]}'
 
         print(filepath)
         # sending the file path to the ml module
