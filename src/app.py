@@ -35,23 +35,24 @@ def accept_incoming_image():
             "message": "Auth Required"
         }), 401
     response = jw.validate_token(token)
-    if response[0] and response[1]['decodedToken']['role'] == 'device':
-        # set a storage directory for the image. built using the username.
-        storage_directory = f"./static/images/{response[1]['decodedToken']['username']}/"
-        if os.path.isdir(storage_directory):
-            pass
-        else:
-            os.mkdir(storage_directory)
-        # uploaded
-        f = flask.request.files['image']
-        file_uuid = shortuuid.uuid()
-        filename = storage_directory + file_uuid + ".png"
-        f.save(filename)
-        ilog.log(response[1]['decodedToken']['username'], file_uuid + ".png",
-                 f"40.76.37.214:80/static/images/{response[1]['decodedToken']['username']}/{file_uuid}.png", str(datetime.now()))
-        return (flask.jsonify({
-            "message": f"Accepted the Image from user {response[1]['decodedToken']['username']}"
-        })), 200
+    if response[0]:
+        if response[1]['decodedToken']['role'] == 'device':
+            # set a storage directory for the image. built using the username.
+            storage_directory = f"./static/images/{response[1]['decodedToken']['username']}/"
+            if os.path.isdir(storage_directory):
+                pass
+            else:
+                os.mkdir(storage_directory)
+            # uploaded
+            f = flask.request.files['image']
+            file_uuid = shortuuid.uuid()
+            filename = storage_directory + file_uuid + ".png"
+            f.save(filename)
+            ilog.log(response[1]['decodedToken']['username'], file_uuid + ".png",
+                    f"40.76.37.214:80/static/images/{response[1]['decodedToken']['username']}/{file_uuid}.png", str(datetime.now()))
+            return (flask.jsonify({
+                "message": f"Accepted the Image from user {response[1]['decodedToken']['username']}"
+            })), 200
     else:
         return flask.jsonify({
             "message": "Malformed JWT."
