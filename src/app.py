@@ -13,6 +13,7 @@ import jwt_handler as jw
 from machine_learning.face_detection import detect as face_detect
 from machine_learning.color_detection import detect as color_detect
 from machine_learning.handwriting_recognition import recognize as writing_detect
+from machine_learning.image_classification import vision as classifier
 
 # initialization
 app = flask.Flask(__name__)
@@ -232,6 +233,24 @@ def ml_face_recog():
         # sending the file path to the ml module
         output = color_detect.detect(filepath)
         return output, 200 
+                     
+                     
+@app.route('/api/ml/classifier', methods=['GET'])
+def ml_face_recog():
+    # retrieve the last image from the database
+    with open('userlist.csv', 'r') as f:
+        # readlines, select the last line and split
+        ls = f.readlines()
+        print(ls)
+        ls = ls[-1].split(',')
+        print(ls)
+        filepath = f'./static/images/{ls[1]}/{ls[2]}'
+
+        print(filepath)
+        # sending the file path to the ml module
+        output = classifier.predict(filepath)
+        return output, 200 
+
 
 
 
