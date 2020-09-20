@@ -100,7 +100,7 @@ def snapper_view():
     return flask.render_template('snapper.html', data={'url':'#'})
 
 
-@app.route('/api/snap_raspberry', methods=['GET'])
+@app.route('/api/snap_raspberry', methods=['POST'])
 def snap_raspberry():
     """
     Should send an API request to the raspberry pi
