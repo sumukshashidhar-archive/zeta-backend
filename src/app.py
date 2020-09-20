@@ -138,19 +138,20 @@ def delete_image():
     if imgpath and token:
         # we have a image path and a token
         response = jw.validate_token(token)
-        if response[0] and response[1]['decodedToken']['role'] == 'device':
-            # means that the response is valid and has a device username
-            username = response[1]['decodedToken']['username']
-            deletion_path = f'/static/images/{username}/{imgpath}'
-            try:
-                os.remove(deletion_path)
-                return flask.jsonify({
-                    "message": "Deleted Image"
-                }), 200
-            except:
-                return flask.jsonify({
-                    "message": "Could not delete"
-                }), 500
+        if response[0]:
+            if response[1]['decodedToken']['role'] == 'device':
+                # means that the response is valid and has a device username
+                username = response[1]['decodedToken']['username']
+                deletion_path = f'/static/images/{username}/{imgpath}'
+                try:
+                    os.remove(deletion_path)
+                    return flask.jsonify({
+                        "message": "Deleted Image"
+                    }), 200
+                except:
+                    return flask.jsonify({
+                        "message": "Could not delete"
+                    }), 500
         else:
             return flask.jsonify({
                 "message": "Malformed JWT."
