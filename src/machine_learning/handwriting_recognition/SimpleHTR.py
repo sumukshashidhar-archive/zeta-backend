@@ -13,8 +13,8 @@ from machine_learning.handwriting_recognition.SamplePreprocessor import preproce
 
 class FilePaths:
 	"filenames and paths to data"
-	fnCharList = './handwriting_recognition/model/charList.txt'
-	fnAccuracy = './handwriting_recognition/model/accuracy.txt'
+	fnCharList = './machine_learning/handwriting_recognition/model/charList.txt'
+	fnAccuracy = './machine_learning/handwriting_recognition/model/accuracy.txt'
 
 
 def infer(model, fnImg, printOut = False):
