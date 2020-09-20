@@ -1,6 +1,5 @@
 import cv2 as cv
 import sys
-from PIL import Image
 
 
 def detect(input_filename, output_filename):
@@ -53,7 +52,7 @@ def detect(input_filename, output_filename):
         "executed": detected_faces["executed"]
     }
 
-    
+
     # returns : {
     #     "face0": the (column, row, width, height) for a face, can be renamed
     #     "face...": more faces
