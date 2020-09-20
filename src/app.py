@@ -26,6 +26,16 @@ def home():
     })
 
 
+"""
+AUTHENTICATION BASED ROUTES
+"""
+
+@app.route('/login', methods=['GET'])
+def render_login_page():
+    return flask.render_template('login.html')
+
+
+
 @app.route('/api/upload/image', methods=['POST'])
 def accept_incoming_image():
     try:
