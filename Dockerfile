@@ -23,6 +23,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     rm -rf /var/lib/apt/lists/* && \
     apt-get install -y libsm6 libxext6 libxrender-dev
 
+RUN apt-get update ##[edited]
+RUN apt-get install 'ffmpeg'\
+    'libsm6'\ 
+    'libxext6'  -y
+
 RUN pip3 install --upgrade pip
 
 # Install project dependencies
