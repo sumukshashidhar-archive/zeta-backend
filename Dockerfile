@@ -18,7 +18,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         git \
         && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* && \
+    apt-get install -y libsm6 libxext6 libxrender-dev
 
 RUN pip3 install --upgrade pip
 
