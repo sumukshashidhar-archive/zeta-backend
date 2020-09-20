@@ -22,7 +22,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     apt-get update && \
     rm -rf /var/lib/apt/lists/* && \
     apt-get install -y libsm6 libxext6 libxrender-dev && \
-    apt-get install -y libgl1-mesa-dev
 
 RUN pip3 install --upgrade pip
 
