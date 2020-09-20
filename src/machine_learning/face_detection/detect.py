@@ -17,7 +17,7 @@ def detect(input_filename, output_filename):
 
     original_image = cv.imread(input_filename)
     grayscale_image = cv.cvtColor(original_image, cv.COLOR_BGR2GRAY)
-    face_cascade = cv.CascadeClassifier('haarcascade_frontalface_alt.xml')
+    face_cascade = cv.CascadeClassifier('./machine_learning/face_detection/haarcascade_frontalface_alt.xml')
 
 
     detected_faces = {}
