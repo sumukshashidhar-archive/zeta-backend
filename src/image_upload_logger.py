@@ -4,3 +4,6 @@ def log(username, filename, link, time):
     with open("userlist.csv", 'a+', newline='\n',) as f:
         writeclass = csv.writer(f, delimiter=',')
         writeclass.writerow([time, username, filename, link])
+
+
+
