@@ -34,6 +34,10 @@ AUTHENTICATION BASED ROUTES
 def render_login_page():
     return flask.render_template('login.html')
 
+@app.route('/register', methods=['GET'])
+def render_register_page():
+    return flask.render_template('register.html')
+
 
 
 @app.route('/api/upload/image', methods=['POST'])
