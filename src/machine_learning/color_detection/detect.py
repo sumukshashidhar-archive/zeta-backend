@@ -1,3 +1,7 @@
+from colorthief import ColorThief
+import sys
+
+
 def detect(input_filename):
     """Opens a filename and outputs the dominant color in the frame
 
@@ -7,6 +11,16 @@ def detect(input_filename):
     Returns:
         dict: a dictionary with the dominant color as a key-value pair
     """
+
+
+    color_thief = ColorThief(image_path)
+    color = color_thief.get_color(quality=1)
+
+
     return {
-        "dominant_color":""
+        "dominant_color": color
     }
+
+
+if __name__ == "__main__":
+    printdetect("colorTest.jpg")
