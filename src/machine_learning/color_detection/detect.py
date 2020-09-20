@@ -13,7 +13,7 @@ def detect(input_filename):
     """
 
 
-    color_thief = ColorThief(image_path)
+    color_thief = ColorThief(input_filename)
     color = color_thief.get_color(quality=1)
 
 
@@ -23,4 +23,4 @@ def detect(input_filename):
 
 
 if __name__ == "__main__":
-    printdetect("colorTest.jpg")
+    print(detect("colorTest.jpg"))
