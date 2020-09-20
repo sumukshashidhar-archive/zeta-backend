@@ -114,7 +114,7 @@ def snap_raspberry():
             "message": "Auth Token or Raspberry Pi Ip not supplied"
         }), 400
     RASP_IP_ADDR = ip
-    url = f"http://{RASP_IP_ADDR}:80/api/snap"
+    url = f"http://{RASP_IP_ADDR}:80/api/snap/"
     return flask.render_template('snapper.html', data={
         "url":url
     })
