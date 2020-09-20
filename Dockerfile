@@ -29,7 +29,7 @@ RUN pip3 install --upgrade pip
 # Install project dependencies
 RUN pip3 install -r requirements.txt
 
-RUN pip3 list
+RUN pip3 freeze && echo "done"
 
 EXPOSE 80
 
