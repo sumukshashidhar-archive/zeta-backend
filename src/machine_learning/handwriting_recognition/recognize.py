@@ -1,3 +1,5 @@
+import SimpleHTR
+
 def analyse(input_filename):
     """Analyses and outputs predicted text from the given picture
 
@@ -7,7 +9,17 @@ def analyse(input_filename):
     Returns:
         dict: A dictionary with certain values
     """
+
+    results = SimpleHTR.predict(input_filename)
+
+# 	"recognized": results[0][0],
+# 	"probability": float(results[1][0])
+
     return {
-        "text_predicted":"", 
-        "accuracy_rate":""
+        "text_predicted": results[0][0], 
+        "accuracy_rate": float(results[1][0])
     }
+
+
+#test
+#print(analyse(".\\test.png"))
