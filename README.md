@@ -23,3 +23,18 @@ values = {"token":token}
 
 response = requests.post(url, files=files, data=values)
 ```
+
+# Image Deletion
+## GET - /api/deleteImage
+```
+@params:
+token - the JWT token
+path - the image path to delete
+```
+
+For example
+```
+http://0.0.0.0/api/deleteImage?token=somejwttokenhere&path=somerandompath.png
+```
+
+this is a valid request
