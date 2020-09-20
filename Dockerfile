@@ -29,6 +29,8 @@ RUN pip3 install --upgrade pip
 # Install project dependencies
 RUN pip3 install -r requirements.txt
 
+RUN pip3 list
+
 EXPOSE 80
 
 CMD cd src && python app.py
