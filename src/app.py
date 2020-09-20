@@ -97,28 +97,28 @@ def view_ml():
 
 @app.route('/snapper', methods=['GET'])
 def snapper_view():
-    return flask.render_template('snapper.html')
+    return flask.render_template('snapper.html', data={'url':'#'})
 
 
-@app.route('/api/snap_raspberry', methods=['POST'])
+@app.route('/api/snap_raspberry', methods=['GET'])
 def snap_raspberry():
     """
     Should send an API request to the raspberry pi
     :return:
     """
-    RASP_IP_ADDR = ""
-    PERSONAL_TOKEN = ""
-    response = requests.post(
-        url = f"http://{RASP_IP_ADDR}:80/api/snap",
-        data = {
-            "token":PERSONAL_TOKEN
-        }
-    )
-    if response.status_code == 200:
-        # means that it succeeded in uploading the image
-        print("Done.")
-    else:
-        print(response.status_code, response.text)
+    try:
+        print(flask.request.form)
+        ip = flask.request.form['raspip']
+    except:
+        return flask.jsonify({
+            "message": "Auth Token or Raspberry Pi Ip not supplied"
+        }), 400
+    RASP_IP_ADDR = ip
+    url = f"http://{RASP_IP_ADDR}:80/api/snap"
+    return flask.render_template('snapper.html', data={
+        "url":url
+    })
+
 
 
 

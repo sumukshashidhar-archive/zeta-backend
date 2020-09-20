@@ -43,7 +43,12 @@
   <form action="/api/snap_raspberry">
    <label for="raspip">Raspberry Pi IP Address</label><br>
   <input type="text" style = "font-family:Oswald,serif;font-size:40px;font-style:Italic;" id="raspip" name="raspip" value="" placeholder="192.168.X.X"><br>
-  <input type="submit" style = "font-family:Raleway Light,serif;font-size:15px;" value="SNAP!">
+  <input type="submit" style = "font-family:Raleway Light,serif;font-size:15px;" value="Prepare Connection">
   </form>
 </h1>
+
+<h1>
+  Click on this link to snap!
+</h1>
+<a href={{data['url']}}>SNAP!</a>
 </html>
