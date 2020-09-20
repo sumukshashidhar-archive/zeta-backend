@@ -1,5 +1,7 @@
 # zeta-backend
 
+Zeta is authenticated through tokens
+
 # Image Upload Guidelines
 
 Send a POST Request to /api/image/upload
