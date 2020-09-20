@@ -1,4 +1,4 @@
-FROM python:latest
+FROM python:3.6
 
 RUN mkdir /app
 WORKDIR /app
@@ -19,7 +19,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
-    apt-get install -y libsm6 libxext6 libxrender-dev
+    apt-get install -y libsm6 libxext6 libxrender-dev && \
+    apt-get install -y libgl1-mesa-glx
 
 RUN pip3 install --upgrade pip
 
