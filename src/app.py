@@ -12,7 +12,7 @@ import jwt_handler as jw
 # ml imports
 from machine_learning.face_detection import detect as face_detect
 from machine_learning.color_detection import detect as color_detect
-from machine_learning.handwriting_recognition import recognize as writing_detect
+#from machine_learning.handwriting_recognition import recognize as writing_detect
 
 # initialization
 app = flask.Flask(__name__)
