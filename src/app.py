@@ -9,6 +9,11 @@ import requests
 import image_upload_logger as ilog
 import jwt_handler as jw
 
+# ml imports
+from machine_learning.face_detection import detect as face_detect
+from machine_learning.color_detection import detect as color_detect
+from machine_learning.handwriting_recognition import recognize as writing_detect
+
 # initialization
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
@@ -188,6 +193,10 @@ def ml_face_recog():
         print(ls)
         filepath = f'./static/images/{ls[1]}/{ls[2]}'
 
+        print(filepath)
+        # sending the file path to the ml module
+        output = writing_detect.analyse(filepath)
+        return output, 200
 
 
 
