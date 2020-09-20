@@ -102,7 +102,7 @@ def view_ml():
 
 @app.route('/snapper', methods=['GET'])
 def snapper_view():
-    return flask.render_template('snapper.html')
+    return flask.render_template('snapper.html', data = {"url":"#"})
 
 
 @app.route('/api/snap_raspberry', methods=['POST'])
