@@ -123,9 +123,8 @@ def snap_raspberry():
     resp = requests.get(url)
     if resp.status_code == 200:
         return flask.redirect(flask.url_for('/functions'))
-    return flask.render_template('snapper.html', data={
-        "url":url
-    })
+    else:
+        return {"message":"Did not snap I guess"},500
 
 
 
