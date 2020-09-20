@@ -236,7 +236,7 @@ def ml_face_recog():
                      
                      
 @app.route('/api/ml/classifier', methods=['GET'])
-def classifier():
+def classification():
     # retrieve the last image from the database
     with open('userlist.csv', 'r') as f:
         # readlines, select the last line and split
