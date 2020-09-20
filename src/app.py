@@ -9,11 +9,6 @@ import requests
 import image_upload_logger as ilog
 import jwt_handler as jw
 
-# ml imports
-from machine_learning.face_detection import detect as face_detect
-from machine_learning.color_detection import detect as color_detect
-#from machine_learning.handwriting_recognition import recognize as writing_detect
-
 # initialization
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
@@ -29,20 +24,6 @@ def home():
         "status": 200,
         "message": "All Systems are GO!"
     })
-
-
-"""
-AUTHENTICATION BASED ROUTES
-"""
-
-@app.route('/login', methods=['GET'])
-def render_login_page():
-    return flask.render_template('login.html')
-
-@app.route('/register', methods=['GET'])
-def render_register_page():
-    return flask.render_template('register.html')
-
 
 
 @app.route('/api/upload/image', methods=['POST'])
@@ -102,7 +83,7 @@ def view_ml():
 
 @app.route('/snapper', methods=['GET'])
 def snapper_view():
-    return flask.render_template('snapper.html', data={'url':'#'})
+    return flask.render_template('snapper.html')
 
 
 @app.route('/api/snap_raspberry', methods=['POST'])
@@ -111,19 +92,19 @@ def snap_raspberry():
     Should send an API request to the raspberry pi
     :return:
     """
-    try:
-        print(flask.request.form)
-        ip = flask.request.form['raspip']
-    except:
-        return flask.jsonify({
-            "message": "Auth Token or Raspberry Pi Ip not supplied"
-        }), 400
-    RASP_IP_ADDR = ip
-    url = f"http://{RASP_IP_ADDR}:5000/api/snap"
-    return flask.render_template('snapper.html', data={
-        "url":url
-    })
-
+    RASP_IP_ADDR = ""
+    PERSONAL_TOKEN = ""
+    response = requests.post(
+        url = f"http://{RASP_IP_ADDR}:80/api/snap",
+        data = {
+            "token":PERSONAL_TOKEN
+        }
+    )
+    if response.status_code == 200:
+        # means that it succeeded in uploading the image
+        print("Done.")
+    else:
+        print(response.status_code, response.text)
 
 
 
@@ -178,26 +159,7 @@ def delete_image():
             }), 403
 
 
-"""
-ML FUNCTIONS
-"""   
-
-@app.route('/api/ml/face_recognition', methods=['GET'])
-def ml_face_recog():
-    # retrieve the last image from the database
-    with open('userlist.csv', 'r') as f:
-        # readlines, select the last line and split
-        ls = f.readlines()
-        print(ls)
-        ls = ls[-1].split(',')
-        print(ls)
-        filepath = f'./static/images/{ls[1]}/{ls[2]}'
-
-        print(filepath)
-        # sending the file path to the ml module
-        output = writing_detect.analyse(filepath)
-        return output, 200
-
+    
 
 
 if __name__ == "__main__":

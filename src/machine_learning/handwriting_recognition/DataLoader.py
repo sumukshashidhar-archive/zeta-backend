@@ -5,7 +5,7 @@ import os
 import random
 import numpy as np
 import cv2
-from machine_learning.handwriting_recognition.SamplePreprocessor import preprocess
+from SamplePreprocessor import preprocess
 
 
 class Sample:

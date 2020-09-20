@@ -4,17 +4,15 @@ from __future__ import print_function
 import json
 import cv2
 import editdistance
-from machine_learning.handwriting_recognition.DataLoader import DataLoader
-from machine_learning.handwriting_recognition.DataLoader import Batch
-from machine_learning.handwriting_recognition.Model import Model
-from machine_learning.handwriting_recognition.Model import DecoderType
-from machine_learning.handwriting_recognition.SamplePreprocessor import preprocess
+from DataLoader import DataLoader, Batch
+from Model import Model, DecoderType
+from SamplePreprocessor import preprocess
 
 
 class FilePaths:
 	"filenames and paths to data"
-	fnCharList = './handwriting_recognition/model/charList.txt'
-	fnAccuracy = './handwriting_recognition/model/accuracy.txt'
+	fnCharList = '.\\model\\charList.txt'
+	fnAccuracy = '.\\model\\accuracy.txt'
 
 
 def infer(model, fnImg, printOut = False):
