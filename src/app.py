@@ -106,6 +106,55 @@ def snap_raspberry():
         print(response.status_code, response.text)
 
 
+
+@app.route('/api/deleteImage', methods=['GET'])
+def delete_image():
+    # check if the token is supplied with the getRequest:
+    token = None
+    if 'token' in flask.request.args:
+        token = flask.request.args['token']
+    else:
+        return {
+            "message":"Token Not Supplied"
+        }, 403
+
+    # check if the image path is supplied with the request
+    imgpath = None
+    if 'path' in flask.request.args:
+        imgpath = flask.request.args['path']
+    else:
+        return {
+            "message":"Path not supplied"
+        }, 400
+    
+    # if we reach here, the image path is supplied
+    # now we try to delete the image
+    
+    if imgpath and token:
+        # we have a image path and a token
+        response = jw.validate_token(token)
+        if response[0] and response[1]['decodedToken']['role'] == 'device':
+            # means that the response is valid and has a device username
+            username = response[1]['decodedToken']['username']
+            deletion_path = f'/static/images/{username}/{imgpath}'
+            try:
+                os.remove(deletion_path)
+                return flask.jsonify({
+                    "message": "Deleted Image"
+                }), 200
+            except:
+                return flask.jsonify({
+                    "message": "Could not delete"
+                }), 500
+        else:
+            return flask.jsonify({
+                "message": "Malformed JWT."
+            }), 403
+
+
+    
+
+
 if __name__ == "__main__":
     # critical to have this conditional for gunicorn to work!
     app.run(host=HOST, port=PORT)
