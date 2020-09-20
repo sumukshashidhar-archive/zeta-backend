@@ -182,8 +182,8 @@ def delete_image():
 ML FUNCTIONS
 """   
 
-@app.route('/api/ml/face_recognition', methods=['GET'])
-def ml_face_recog():
+@app.route('/api/ml/writing_recognition', methods=['GET'])
+def ml_writing_recog():
     # retrieve the last image from the database
     with open('userlist.csv', 'r') as f:
         # readlines, select the last line and split
@@ -197,6 +197,40 @@ def ml_face_recog():
         # sending the file path to the ml module
         output = writing_detect.analyse(filepath)
         return output, 200
+ 
+                     
+@app.route('/api/ml/color_recognition', methods=['GET'])
+def ml_color_recog():
+    # retrieve the last image from the database
+    with open('userlist.csv', 'r') as f:
+        # readlines, select the last line and split
+        ls = f.readlines()
+        print(ls)
+        ls = ls[-1].split(',')
+        print(ls)
+        filepath = f'./static/images/{ls[1]}/{ls[2]}'
+
+        print(filepath)
+        # sending the file path to the ml module
+        output = face_detect.detect(filepath)
+        return output, 200 
+
+                     
+@app.route('/api/ml/face_recognition', methods=['GET'])
+def ml_face_recog():
+    # retrieve the last image from the database
+    with open('userlist.csv', 'r') as f:
+        # readlines, select the last line and split
+        ls = f.readlines()
+        print(ls)
+        ls = ls[-1].split(',')
+        print(ls)
+        filepath = f'./static/images/{ls[1]}/{ls[2]}'
+
+        print(filepath)
+        # sending the file path to the ml module
+        output = color_detect.detect(filepath)
+        return output, 200 
 
 
 
