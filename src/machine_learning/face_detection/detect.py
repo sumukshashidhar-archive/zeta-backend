@@ -1,5 +1,6 @@
 import cv2 as cv
 import sys
+from PIL import Image
 
 
 def detect(input_filename, output_filename):
@@ -46,7 +47,13 @@ def detect(input_filename, output_filename):
     #save image
     cv.imwrite(output_filename, original_image)
 
-    return detected_faces
+
+    return {
+        "count": detected_faces["count"],
+        "executed": detected_faces["executed"]
+    }
+
+    
     # returns : {
     #     "face0": the (column, row, width, height) for a face, can be renamed
     #     "face...": more faces
@@ -56,4 +63,4 @@ def detect(input_filename, output_filename):
 
 
 if __name__ == "__main__":
-    print( detect("faceTest.jpg", "output.jpg") )
+    print( detect("faceTest04.png", "output.jpg") )
