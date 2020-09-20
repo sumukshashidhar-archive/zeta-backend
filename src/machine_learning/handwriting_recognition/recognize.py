@@ -1,4 +1,4 @@
-import SimpleHTR
+from machine_learning.handwriting_recognition import SimpleHTR as SimpleHTR
 
 def analyse(input_filename):
     """Analyses and outputs predicted text from the given picture

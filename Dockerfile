@@ -17,13 +17,18 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         python3-venv \
         git \
         && \
+    dpkg --add-architecture i386 && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    apt-get update && \
+    rm -rf /var/lib/apt/lists/* && \
+    apt-get install -y libsm6 libxext6 libxrender-dev
 
 RUN pip3 install --upgrade pip
 
 # Install project dependencies
 RUN pip3 install -r requirements.txt
+
+RUN pip3 freeze && echo "done"
 
 EXPOSE 80
 
