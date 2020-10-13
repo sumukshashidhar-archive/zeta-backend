@@ -1,5 +1,12 @@
 # zeta-backend
 
+This is the official cloud backend software for Zeta. The other components of Zeta can be found
+[Raspberry Pi Software for Image Delivery](https://github.com/1sigmoid/zeta-pi)
+[Authentication Server](https://github.com/1sigmoid/jwt-auth-server)
+[ML Functions](https://github.com/1sigmoid/zeta-ml-functions)
+
+
+
 Zeta is authenticated through tokens
 
 # Image Upload Guidelines
